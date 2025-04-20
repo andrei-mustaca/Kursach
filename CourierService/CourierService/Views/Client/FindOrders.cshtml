@@ -1,0 +1,22 @@
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model Models.ClientSearchViewModel
+@{
+    ViewData["Title"] = "Найти заказы";
+}
+<link rel="stylesheet" href="~/css/FindStyle.css" asp-append-version="true"/>
+<h2>Поиск заказов</h2>
+<form asp-action="FindOrders" method="post">
+    <div>
+        <label>ФИО</label>
+        <input asp-for="FullName" required />
+    </div>
+    <div>
+        <label>Телефон</label>
+        <input asp-for="TelephoneNumber" required />
+    </div>
+    <div>
+        <label>Email</label>
+        <input asp-for="Email" required />
+    </div>
+    <button type="submit">Найти заказы</button>
+</form>

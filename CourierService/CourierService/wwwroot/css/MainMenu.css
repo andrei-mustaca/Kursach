@@ -1,0 +1,71 @@
+/* Общие стили для главной страницы */
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    background-color: #f8f9fa; /* Лёгкий фон */
+}
+
+/* Герой-секция (главный экран) */
+.hero-section {
+    background-color: #76b1ed;
+    color: white;
+    padding: 100px 0;
+}
+
+.hero-section h1 {
+    font-size: 3rem;
+    font-weight: bold;
+}
+
+.hero-section .lead {
+    font-size: 1.5rem;
+}
+
+.hero-section .btn-primary {
+    background-color: #f39c12;
+    border-color: #f39c12;
+}
+
+.hero-section .btn-primary:hover {
+    background-color: #e67e22;
+    border-color: #e67e22;
+}
+
+/* Преимущества */
+.advantages {
+    background-color: #f8f9fa;
+}
+
+.advantages h2 {
+    font-size: 2rem;
+    margin-bottom: 30px;
+}
+
+.advantages .row .col-md-4 {
+    margin-bottom: 30px;
+}
+
+.advantages h4 {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.advantages p {
+    font-size: 1rem;
+    color: #555;
+}
+
+/* Контактная информация */
+.contact {
+    background-color: #ffffff;
+}
+
+.contact h3 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.contact p {
+    font-size: 1.2rem;
+    color: #333;
+}

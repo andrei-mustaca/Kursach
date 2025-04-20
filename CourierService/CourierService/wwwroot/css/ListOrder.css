@@ -1,0 +1,42 @@
+/* Контейнер для заказов */
+.order-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Карточка заказа */
+.order-card {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ddd;
+    transition: box-shadow 0.3s ease;
+}
+
+/* Стили для карточки при наведении */
+.order-card:hover {
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Заголовки внутри карточки */
+.order-card p {
+    margin: 10px 0;
+    font-size: 16px;
+    color: #333;
+}
+
+/* Жирный текст (для меток) */
+.order-card b {
+    color: #2c3e50;
+}
+
+/* Мобильная адаптация */
+@media (max-width: 768px) {
+    .order-container {
+        grid-template-columns: 1fr; /* Все заказы в одну колонку на мобильных устройствах */
+    }
+}

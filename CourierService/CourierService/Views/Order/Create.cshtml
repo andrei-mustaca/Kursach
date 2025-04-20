@@ -1,0 +1,38 @@
+@model Models.OrderViewModel
+@{
+    ViewData["Title"] = "Оформление заказа";
+}
+<link rel="stylesheet" href="~/css/CreateStyle.css" asp-append-version="true"/>
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Оформление заказа</h2>
+
+    <form asp-action="Create" method="post" class="order-form mx-auto p-4 rounded shadow">
+        <div class="form-group mb-3">
+            <label asp-for="FullName" class="form-label">Ваше имя</label>
+            <input asp-for="FullName" class="form-control" placeholder="Иван Иванов" />
+            <span asp-validation-for="FullName" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="TelephoneNumber" class="form-label">Телефон</label>
+            <input asp-for="TelephoneNumber" class="form-control" placeholder="+7 900 123 4567" />
+            <span asp-validation-for="TelephoneNumber" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="DepartureRouteName" class="form-label">Адрес отправления (город улица дом)</label>
+            <input asp-for="DepartureRouteName" class="form-control" placeholder="Москва Ленина 10" />
+            <span asp-validation-for="DepartureRouteName" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-4">
+            <label asp-for="DestinationRouteName" class="form-label">Адрес назначения (город улица дом)</label>
+            <input asp-for="DestinationRouteName" class="form-control" placeholder="Москва Тверская 20" />
+            <span asp-validation-for="DestinationRouteName" class="text-danger"></span>
+        </div>
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary px-4">Оформить заказ</button>
+        </div>
+    </form>
+</div>
