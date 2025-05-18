@@ -1,0 +1,18 @@
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model Models.CourierViewModel
+@{
+    ViewData["Title"] = "Подтверждение роли";
+}
+<link rel="stylesheet" href="~/css/FindStyle.css" asp-append-version="true"/>
+<h2>Поиск заказов</h2>
+<form asp-action="FindOrders" method="post">
+    <div>
+        <label>ФИО</label>
+        <input asp-for="FullName" required />
+    </div>
+    <div>
+        <label>Телефон</label>
+        <input asp-for="TelephoneNumber" required />
+    </div>
+    <button type="submit">Подтвердить</button>
+</form>

@@ -12,6 +12,7 @@ builder.Services.AddDbContext<CourierServiceContext>(options=> options.UseNpgsql
 builder.Services.AddScoped<CientCRUD>();
 builder.Services.AddScoped<OrderService>();
 builder.Services.AddScoped<RegistrationService>();
+builder.Services.AddHttpClient<Service.CourierService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

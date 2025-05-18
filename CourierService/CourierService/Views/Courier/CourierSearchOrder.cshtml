@@ -1,0 +1,14 @@
+@model List<Models.CourierSearchViewModel>
+<link rel="stylesheet" href="~/css/ListOrder.css" asp-append-version="true"/>
+<h2>Поиск заказов</h2>
+<div class="order-container">
+    @foreach (var order in Model)
+    {
+        <div class="order-card">
+            <p><b>Откуда:</b> @order.DepartureAddress</p>
+            <p><b>Куда:</b> @order.DestinationAddress</p>
+            <p><b>Расстояние:</b> @order.DistanceKm км</p>
+            <p><b>Доля от оплаты:</b> @order.Cost руб.</p>
+        </div>
+    }
+</div>

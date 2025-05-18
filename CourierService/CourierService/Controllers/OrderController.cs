@@ -12,13 +12,12 @@ public class OrderController : Controller
     {
         _service = service;
     }
-    [HttpGet]
     public IActionResult Create()
     {
         return View();
     }
 
-    [HttpGet]
+    [HttpPost]
     public async Task<IActionResult> Create(OrderViewModel model)
     {
         if (ModelState.IsValid)

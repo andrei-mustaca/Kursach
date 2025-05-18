@@ -6,60 +6,35 @@ using Newtonsoft.Json.Linq;
 
 namespace Service;
 
-public class OrderService
+public class CourierService
 {
     private readonly CourierServiceContext _context;
     
-    public OrderService(CourierServiceContext context)
+
+    public CourierService(CourierServiceContext context, HttpClient client)
     {
         _context = context;
-        _httpClient = new HttpClient();
+        _httpClient = client;
     }
-
-    public async Task<bool> CreateOrder(OrderViewModel model)
+    public async Task CourierRegister(Courier courier)
     {
-        var client = await _context.Clients.FirstOrDefaultAsync(c=>c.FullName==model.FullName&&c.TelephoneNumber==model.TelephoneNumber);
-        if(client==null)
+        if (courier.FullName==_context.Couriers.FirstOrDefault(c=>c.FullName==courier.FullName)?.FullName)
         {
-            return false;
+            
         }
-
-        string[] massDeparture = model.DepartureRouteName.Split(' ');
-        var departureRoute = await _context.Routes.FirstOrDefaultAsync(r=>r.Name==massDeparture[0]);
-        departureRoute = await _context.Routes.FirstOrDefaultAsync(r=>r.Name==massDeparture[1]&&r.ParentId==departureRoute.Id);
-        departureRoute = await _context.Routes.FirstOrDefaultAsync(r=>r.Name==massDeparture[2]&&r.ParentId==departureRoute.Id);
-        string[] massDestination = model.DestinationRouteName.Split(' ');
-        var destinationRoute = await _context.Routes.FirstOrDefaultAsync(r=>r.Name==massDestination[0]);
-        destinationRoute = await _context.Routes.FirstOrDefaultAsync(r=>r.Name==massDestination[1]&&r.ParentId==destinationRoute.Id);
-        destinationRoute = await _context.Routes.FirstOrDefaultAsync(r=>r.Name==massDestination[2]&&r.ParentId==destinationRoute.Id);
-
-        var order = new Order()
+        else
         {
-            Id = new Guid(),
-            ClientId = client.Id,
-            DeparturePoint = departureRoute.Id,
-            DestinationPoint = destinationRoute.Id
-        };
-        var order_history = new OrderHistory()
-        {
-            OrderId = order.Id,
-            Status = 0,
-            Date = DateOnly.FromDateTime(DateTime.Now),
-            Order = order
-        };
-       await _context.Orders.AddAsync(order);
-       await _context.SaveChangesAsync();
-       await _context.OrderHistories.AddAsync(order_history);
-       await _context.SaveChangesAsync();
-        return true;
-    }
-    public async Task<List<ClientOrderViewModel>> GetClientOrdersAsync(Guid clientId)
+            courier.Id = new Guid();
+            courier.OrderPercentage = 25;
+            await _context.Couriers.AddAsync(courier);
+            await _context.SaveChangesAsync();
+        }
+    } 
+     public async Task<List<CourierSearchViewModel>> GetClientOrdersAsync()
     {
-        var orders = await _context.Orders
-            .Where(o => o.ClientId == clientId)
-            .ToListAsync();
+        var orders = await _context.Orders.ToListAsync();
 
-        var result = new List<ClientOrderViewModel>();
+        var result = new List<CourierSearchViewModel>();
 
         foreach (var order in orders)
         {
@@ -68,14 +43,15 @@ public class OrderService
             departure = departure.Replace("_", " ");
             destination = destination.Replace("_", " ");
             var status = await GetOrderStatusAsync(order.Id);
+            if(status!="В ожидании")
+                continue;
             var distance = await CalculateDistanceAsync(departure, destination);
-            var cost = (decimal)(distance * 10); // 10 руб/км
+            var cost = (decimal)(distance * 10*25/100); // 10 руб/км
 
-            result.Add(new ClientOrderViewModel
+            result.Add(new CourierSearchViewModel()
             {
                 DepartureAddress = departure,
                 DestinationAddress = destination,
-                Status = status,
                 DistanceKm = distance,
                 Cost = cost
             });
@@ -155,6 +131,4 @@ public class OrderService
         var coords = json["features"]?[0]?["geometry"]?["coordinates"]?.ToObject<double[]>();
         return coords;
     } 
-
-
 }

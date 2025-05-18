@@ -8,10 +8,12 @@ public class RegistrationController : Controller
 {
     
     private readonly RegistrationService _service;
+    private readonly CourierServiceContext _context;
 
-    public RegistrationController(RegistrationService service)
+    public RegistrationController(RegistrationService service,CourierServiceContext context)
     {
         _service = service;
+        _context = context;
     }
     [HttpGet]
     public IActionResult Register()
